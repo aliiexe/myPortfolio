@@ -1,0 +1,110 @@
+.tech-stack {
+    text-align: left;
+    padding: 50px 20px;
+    color: #fff;
+    max-width: 945px;
+    background-color: #0a0a0a;
+    margin: 20px auto;
+}
+
+.tech-stack h2 {
+    font-size: 45px;
+    font-weight: bold;
+    margin-bottom: 50px;
+}
+
+.carousel {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.carousel-track {
+    display: flex;
+    gap: 30px;
+    will-change: transform;
+}
+
+.carousel-image {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    filter: grayscale(1);
+    opacity: 0.8;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.carousel-image:hover {
+    transform: scale(1.1);
+    opacity: 1;
+    filter: grayscale(0);
+}
+
+.carousel::before,
+.carousel::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 100px;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.carousel::before {
+    left: 0;
+    background: linear-gradient(to right, #0a0a0a, transparent);
+}
+
+.carousel::after {
+    right: 0;
+    background: linear-gradient(to left, #0a0a0a, transparent);
+}
+
+@media (max-width: 1024px) {
+    .tech-stack h2 {
+        font-size: 35px;
+    }
+
+    .carousel-image {
+        width: 50px;
+        height: 50px;
+    }
+
+    .carousel-track {
+        gap: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .tech-stack h2 {
+        font-size: 30px;
+    }
+
+    .carousel-image {
+        width: 55px;
+        height: 55px;
+    }
+
+    .carousel-track {
+        gap: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .tech-stack h2 {
+        font-size: 25px;
+        text-align: left;
+    }
+
+    .carousel-image {
+        width: 50px;
+        height: 50px;
+    }
+
+    .carousel-track {
+        gap: 10px;
+    }
+}
