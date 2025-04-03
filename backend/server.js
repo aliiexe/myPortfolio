@@ -3,10 +3,8 @@ import cors from "cors";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 
-import projectRoutes from "./routes/ProjectRoutes.js";
-import experienceRoutes from "./routes/ExperienceRoutes.js";
+dotenv.config(); // Ensure dotenv is loaded first
 
-dotenv.config();
 const app = express();
 
 // Middleware
@@ -14,7 +12,13 @@ app.use(cors());
 app.use(express.json());
 
 // MongoDB Connection
-mongoose.connect(process.env.MONGO_URI)
+const mongoUri = process.env.MONGO_URI;
+if (!mongoUri) {
+  console.error("MONGO_URI is not defined. Please set it in the environment variables.");
+  process.exit(1); // Exit the process if MONGO_URI is missing
+}
+
+mongoose.connect(mongoUri)
   .then(() => console.log("MongoDB Connected"))
   .catch(err => console.error("MongoDB Connection Error:", err));
 
