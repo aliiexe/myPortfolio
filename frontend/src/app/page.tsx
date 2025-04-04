@@ -1,7 +1,6 @@
 import Hero from './components/Hero';
 import About from './components/About';
 import TechStack from './components/TechStack';
-import Projects from './components/Projects';
 import ProjectComponent from './components/ProjectComponent';
 
 export default function Home() {
@@ -10,7 +9,6 @@ export default function Home() {
       <Hero />
       <About />
       <TechStack />
-      {/* <Projects /> */}
       <ProjectComponent />
       <div className="lorem" style={{ maxWidth: '1200px', margin: '20px auto', padding: '20px' }}>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad porro doloremque ea quam, tempore eligendi doloribus? Sunt dolor accusamus, odio unde, quaerat corporis voluptates sint, nulla deserunt repellat laudantium eaque?
