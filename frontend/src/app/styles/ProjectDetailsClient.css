@@ -1,0 +1,137 @@
+.project-details {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  color: white;
+  font-family: Arial, sans-serif;
+  margin-top: 100px;
+}
+
+.project-header {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.project-title {
+  font-size: 36px;
+  font-weight: bold;
+}
+
+.project-category {
+  color: #888;
+  font-size: 1rem;
+}
+
+/* Main Media */
+.project-main-media {
+  margin-bottom: 20px;
+}
+
+.main-media {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+/* Remaining Images */
+.project-images {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.project-image-wrapper {
+  background-color: #222;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.project-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* Description Section */
+.project-section {
+  margin-bottom: 30px;
+}
+
+.section-title {
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.section-content {
+  font-size: 17px;
+  color: #ccc;
+  line-height: 2;
+}
+
+/* Technologies and Tools */
+.section-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.section-list li {
+  background: #333;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  transition: background 0.3s ease;
+}
+
+.section-list li:hover {
+  background: #555;
+}
+
+/* Links Section */
+.project-links {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  margin-right: 10px;
+  margin-bottom: 20px;
+}
+
+.project-link {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #ccc;
+  text-decoration: underline;
+  transition: all 0.3s ease;
+}
+
+.project-link:hover {
+  color: #fff;
+}
+
+.project-github {
+  color: #ccc;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.project-github:hover {
+  color: #fff;
+}
+
+.github-icon {
+  width: 24px;
+  height: 24px;
+  fill: #fff;
+  transition: fill 0.3s ease;
+}
+
+.project-github:hover .github-icon {
+  fill: #fff;
+}
