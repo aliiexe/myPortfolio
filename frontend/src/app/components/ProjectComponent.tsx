@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import "../styles/ProjectComponent.css";
 
 interface Project {
-  id: string;
+  _id: string;
   title: string;
   category?: string;
   images?: string[];
