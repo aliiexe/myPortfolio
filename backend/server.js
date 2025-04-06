@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import projectRoutes from "./routes/ProjectRoutes.js";
 import experienceRoutes from "./routes/ExperienceRoutes.js";
 import reviewRoutes from "./routes/ReviewRoutes.js";
+import uploadRoutes from "./routes/UploadRoutes.js";
 
 dotenv.config();
 
@@ -27,6 +28,8 @@ app.get("/", (req, res) => res.send("API Running"));
 app.use("/projects", projectRoutes);
 app.use("/experiences", experienceRoutes);
 app.use("/reviews", reviewRoutes);
+app.use("/uploads", express.static("uploads"));
+app.use("/api/upload", uploadRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
