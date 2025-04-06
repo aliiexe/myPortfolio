@@ -3,7 +3,7 @@ import About from './components/About';
 import TechStack from './components/TechStack';
 import ProjectComponent from './components/ProjectComponent';
 import Services from './components/Services';
-import Contact from './Contact/page.tsx';
+import ContactPage from './contact/page';
 
 export default function Home() {
   return (
@@ -13,7 +13,7 @@ export default function Home() {
       <TechStack />
       <ProjectComponent />
       <Services />
-      <Contact />
+      <ContactPage />
     </div>
   );
 }

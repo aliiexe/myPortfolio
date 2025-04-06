@@ -96,7 +96,9 @@ export default function About() {
                     scale: 1,
                     duration: 0.5,
                     ease: "power2.out",
-                    onComplete: () => floatingHover.resume(),
+                    onComplete: () => {
+                        floatingHover.resume(); 
+                    },
                 });
             });
 

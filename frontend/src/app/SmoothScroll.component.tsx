@@ -1,5 +1,3 @@
-"use client";
-
 import React, { useRef, useState, useCallback, useLayoutEffect } from "react";
 import ResizeObserver from "resize-observer-polyfill";
 import {
@@ -10,7 +8,11 @@ import {
 } from "framer-motion";
 import "./styles/SmoothScroller.css";
 
-const SmoothScroll = ({ children }) => {
+type SmoothScrollProps = {
+  children: React.ReactNode; // Explicitly type the children prop
+};
+
+const SmoothScroll: React.FC<SmoothScrollProps> = ({ children }) => {
   // scroll container
   const scrollRef = useRef<HTMLDivElement | null>(null);
 

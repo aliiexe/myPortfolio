@@ -57,7 +57,7 @@ export default function Hero() {
         <span className="highlight">Design</span>
       </p>
       <div className="hero-buttons">
-        <a href="https://www.linkedin.com/in/ali-bourak/" location="" className="hero-button">
+        <a href="https://www.linkedin.com/in/ali-bourak/" className="hero-button">
           Let’s Connect →
         </a>
         <a

@@ -4,7 +4,12 @@ import { useState } from "react";
 
 export default function Contact() {
     const [contactForm, setContactForm] = useState({ name: "", email: "", message: "" });
-    const [commentForm, setCommentForm] = useState({ name: "", email: "", message: "", profilePhoto: null });
+        const [commentForm, setCommentForm] = useState<{
+            name: string;
+            email: string;
+            message: string;
+            profilePhoto: File | null;
+        }>({ name: "", email: "", message: "", profilePhoto: null });
 
     const handleContactSubmit = (e: React.FormEvent) => {
         e.preventDefault();

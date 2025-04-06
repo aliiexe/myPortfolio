@@ -7,7 +7,13 @@ export default function Contact() {
   const [name, setName] = useState("");
   const [message, setMessage] = useState("");
   const [photo, setPhoto] = useState<File | null>(null);
-  const [comments, setComments] = useState([]);
+  
+  type Comment = {
+    name: string;
+    message: string;
+    photo?: string; // Optional property
+  };
+  const [comments, setComments] = useState<Comment[]>([]);
 
   useEffect(() => {
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/reviews/approved`)
