@@ -21,8 +21,8 @@ export default function About() {
             stagger: 0.1,
             scrollTrigger: {
                 trigger: "[data-animate]",
-                start: "top center",
-                once: true,
+                start: "top 60%",
+                scrub: true,
             },
         });
 
@@ -48,8 +48,7 @@ export default function About() {
             ease: "power3.out",
             scrollTrigger: {
                 trigger: ".about-text",
-                start: "top 80%",
-                end: "top 50%",
+                start: "top 60%",
                 once: true,
             },
         });
@@ -62,11 +61,25 @@ export default function About() {
             image.style.transformStyle = "preserve-3d";
             image.style.transition = "transform 0.3s ease-out";
 
+            const floatingHover = gsap.timeline({ repeat: -1, yoyo: true, ease: "power1.inOut" });
+            floatingHover
+                .to(image, {
+                    rotationY: 10,
+                    rotationX: -5, 
+                    duration: 2,
+                })
+                .to(image, {
+                    rotationY: -10,
+                    rotationX: 5,
+                    duration: 2,
+                });
+
             imageContainer.addEventListener("mousemove", (e) => {
                 const { width, height, left, top } = imageContainer.getBoundingClientRect();
                 const x = (e.clientX - left - width / 2) / 5;
                 const y = (e.clientY - top - height / 2) / 5;
 
+                floatingHover.pause();
                 gsap.to(image, {
                     rotationY: x,
                     rotationX: -y,
@@ -83,22 +96,27 @@ export default function About() {
                     scale: 1,
                     duration: 0.5,
                     ease: "power2.out",
+                    onComplete: () => floatingHover.resume(),
+                });
+            });
+
+            const shimmer = document.createElement("div");
+            shimmer.classList.add("shimmer");
+            imageContainer.appendChild(shimmer);
+
+            imageContainer.addEventListener("mousemove", (e) => {
+                const { width, height, left, top } = imageContainer.getBoundingClientRect();
+                const x = e.clientX - left;
+                const y = e.clientY - top;
+
+                gsap.to(shimmer, {
+                    x: x - width / 2,
+                    y: y - height / 2,
+                    duration: 0.3,
+                    ease: "power2.out",
                 });
             });
         }
-
-        gsap.from(".about-image", {
-            y: 100,
-            opacity: 0,
-            duration: 1.5,
-            ease: "power3.out",
-            scrollTrigger: {
-                trigger: ".about-image",
-                start: "top 80%",
-                end: "top 50%",
-                once: true,
-            },
-        });
     }, []);
 
     return (
@@ -107,10 +125,10 @@ export default function About() {
                 <div className="about-text">
                     <h1 className="about-title" data-animate="true">Who am I?</h1>
                     <p className="about-description" data-animate="true">
-                        I&apos;m Ali Bourak, a 19-year-old Software Engineering Student & Designer from Morocco 🇲🇦. 
-                        I specialize in building modern, scalable web applications with a focus on performance, 
-                        aesthetics, and seamless user experiences. Passionate about innovation, I turn ideas into 
-                        reality through code and design.
+                        Hi, I&apos;m Ali Bourak, a passionate 19 yo Software Engineering Student and Designer from Morocco 🇲🇦. 
+                        I thrive on creating innovative, scalable, and visually stunning web applications. 
+                        My expertise lies in blending performance with aesthetics to deliver seamless user experiences. <br/>
+                        Let&apos;s turn ideas into impactful digital solutions together!
                     </p>
                 </div>
                 <div className="about-image-container">

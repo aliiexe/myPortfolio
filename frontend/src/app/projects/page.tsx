@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import "../styles/ProjectComponent.css";
+import { useEffect } from "react";
 
 const projects = [
   {
@@ -83,6 +84,15 @@ const projects = [
 ];
 
 const ProjectsPage = () => {
+    useEffect(() => {
+        const handlePageReload = () => {
+            window.location.reload();
+        };
+        window.addEventListener("pageshow", handlePageReload);
+        return () => {
+            window.removeEventListener("pageshow", handlePageReload);
+        }
+    }, []);
   return (
     <section className="projects-section all-projects-section">
       <h2 className="projects-title text-xl sm:text-2xl md:text-3xl lg:text-4xl">All Projects</h2>

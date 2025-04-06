@@ -1,16 +1,18 @@
+/*
+
 .tech-stack {
     text-align: left;
     padding: 50px 20px;
     color: #fff;
-    max-width: 945px;
+    max-width: 990px;
     background-color: #0a0a0a;
     margin: 20px auto;
+    overflow: hidden;
 }
-
 .tech-stack h2 {
     font-size: 45px;
     font-weight: bold;
-    margin-bottom: 50px;
+    margin-bottom: 60px;
 }
 
 .carousel {
@@ -19,6 +21,27 @@
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
+}
+
+.carousel::before,
+.carousel::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 100px;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.carousel::before {
+    left: 0;
+    background: linear-gradient(to right, #0a0a0a, transparent);
+}
+
+.carousel::after {
+    right: 0;
+    background: linear-gradient(to left, #0a0a0a, transparent);
 }
 
 .carousel-track {
@@ -53,16 +76,6 @@
     pointer-events: none;
 }
 
-.carousel::before {
-    left: 0;
-    background: linear-gradient(to right, #0a0a0a, transparent);
-}
-
-.carousel::after {
-    right: 0;
-    background: linear-gradient(to left, #0a0a0a, transparent);
-}
-
 @media (max-width: 1024px) {
     .tech-stack h2 {
         font-size: 35px;
@@ -94,6 +107,9 @@
 }
 
 @media (max-width: 480px) {
+    .tech-stack {
+        margin: 0;
+    }
     .tech-stack h2 {
         font-size: 25px;
         text-align: left;
@@ -106,5 +122,102 @@
 
     .carousel-track {
         gap: 10px;
+    }
+} */
+
+
+@import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@900&display=swap');
+
+.tech-container {
+    text-align: left;
+    padding: 80px 0;
+    color: #fff;
+    background-color: #0a0a0a;
+    margin: 20px auto;
+    overflow: hidden;
+}
+
+/* .tech-container h2 {
+    font-size: clamp(3rem, 5vw, 6vh);
+    font-weight: bold;
+    margin-bottom: 60px;
+} */
+
+.carousel {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.carousel::before,
+.carousel::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 100px;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.carousel::before {
+    left: 0;
+    background: linear-gradient(to right, #0a0a0a, transparent);
+}
+
+.carousel::after {
+    right: 0;
+    background: linear-gradient(to left, #0a0a0a, transparent);
+}
+
+.tech-line {
+    white-space: nowrap;
+    display: flex;
+    font-family: 'Big Shoulders Display', sans-serif;
+    color: #ffffff;
+    font-weight: 900;
+    text-transform: uppercase;
+    gap: 2vw;
+}
+
+.tech-line.reverse {
+    margin-top: -1vw;
+}
+
+.tech-word {
+    display: inline-flex;
+    align-items: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    font-size: 60px;
+    font-weight: 900;
+}
+
+.tech-word:hover {
+    color: #E0F11F;
+}
+
+.separator {
+    margin: 0 1vw;
+    color: #1f1f1f;
+    font-size: 0.8em;
+}
+
+@media (max-width: 1024px) {
+    .tech-line {
+        font-size: clamp(1.8rem, 4vw, 5vw);
+    }
+}
+
+@media (max-width: 768px) {
+    .tech-line {
+        font-size: clamp(1.5rem, 3.5vw, 4vw);
+    }
+}
+
+@media (max-width: 480px) {
+    .tech-line {
+        font-size: clamp(1.2rem, 3vw, 3.5vw);
     }
 }

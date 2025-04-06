@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@import "@fontsource/poppins"; /* Import Poppins font */
+@import "@fontsource/poppins";
 
 :root {
   --background: #ffffff;
@@ -26,4 +26,5 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans);
   scroll-behavior: smooth;
+  position: relative;
 }

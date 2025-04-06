@@ -1,0 +1,6 @@
+.scroll-container {
+  position: relative;
+  will-change: transform;
+  overflow: hidden;
+  width: 100%;
+}

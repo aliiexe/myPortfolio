@@ -1,0 +1,77 @@
+.contact-section {
+    padding: 50px 20px;
+    background-color: #0a0a0a;
+    color: #fff;
+    text-align: center;
+}
+
+.form-container {
+    max-width: 600px;
+    margin: 0 auto 40px;
+    background-color: #1a1a1a;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.form-heading {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #f5f5f5;
+}
+
+.contact-form input,
+.comment-form input,
+.contact-form textarea,
+.comment-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #333;
+    border-radius: 5px;
+    background-color: #121212;
+    color: #fff;
+    font-size: 1rem;
+}
+
+textarea {
+    resize: none;
+    height: 100px;
+}
+
+.file-upload {
+    display: block;
+    margin-bottom: 15px;
+    text-align: left;
+    color: #ccc;
+    font-size: 0.9rem;
+}
+
+.file-upload input {
+    display: none;
+}
+
+.file-upload span {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #333;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.submit-button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+    background-color: #0056b3;
+}

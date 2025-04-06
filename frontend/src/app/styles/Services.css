@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+.services-section {
+    padding: 80px 20px;
+    color: #fff;
+    text-align: left;
+    max-width: 990px;
+    margin: 0 auto;
+}
+
+.services-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+    margin: 0 auto;
+}
+
+.section-heading {
+    font-size: 45px;
+    font-weight: 800;
+    margin-bottom: 40px;
+    font-family: 'Big Shoulders Display', sans-serif;
+}
+
+.service-card {
+    background: linear-gradient(145deg, #1e1e1e, #121212);
+    border-radius: 20px;
+    padding: 40px 30px;
+    width: 288px;
+    text-align: left;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), inset 0 0 0 1px #222;
+    transition: all 0.5s ease;
+    border: 1px solid transparent;
+    backdrop-filter: blur(6px);
+    cursor: pointer;
+}
+
+.service-card:hover {
+    transform: translateY(-12px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+    border-color: #E0F11F;
+    background: linear-gradient(145deg, #1c1c1c, #151515);
+}
+
+.service-icon {
+    font-size: 2.5rem;
+    margin-bottom: 25px;
+    color: #E0F11F; 
+}
+
+.service-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: #f1f1f1;
+    letter-spacing: 0.5px;
+}
+
+.service-description {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: #ccc;
+}
+
+@media (max-width: 768px) {
+    .service-card {
+        width: 100%;
+    }
+    .services-section {
+        margin-top: -480px;
+    }
+}
+
+@media (max-width: 480px) {
+    .services-section {
+        margin-top: -280px;
+    }
+    .section-heading {
+        font-size: 35px;
+    }
+    .service-card {
+        width: 100%;
+    }
+}

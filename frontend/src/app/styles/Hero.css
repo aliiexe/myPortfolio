@@ -1,4 +1,4 @@
-@import "@fontsource/schoolbell";
+@import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@100;200;300;400;500;600;700;800;900&display=swap');@import "@fontsource/schoolbell";
 
 .hero {
     display: flex;
@@ -16,7 +16,7 @@
     height: 160px;
     border-radius: 50%;
     overflow: hidden;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     border: 3px solid var(--foreground);
 }
 
@@ -28,9 +28,9 @@
 .hero-name {
     border-radius: 20px;
     background: #FFF;
-    font-size: 12px;
+    font-size: 15px;
     font-weight: 500;
-    margin-bottom: 12px;
+    margin-bottom: 22px;
     padding: 5px 15px;
     color: #000;
     flex-shrink: 0;
@@ -43,19 +43,20 @@
     text-align: center;
     font-size: 45px;
     font-style: normal;
-    font-weight: 700;
+    font-weight: 900;
+    font-family: 'Big Shoulders Display', sans-serif;
     line-height: 110%;
     text-transform: capitalize;
     margin-bottom: 18px;
 }
 
 .hero-description {
-    font-size: 17px;
+    font-size: 15px;
     font-weight: 400;
     margin-bottom: 55px;
     line-height: 1.5;
     width: 100%;
-    max-width: 390px;
+    max-width: 350px;
 }
 
 .highlight {
@@ -109,10 +110,10 @@
 }
 
 .hero-button {
-    background-color: var(--foreground);
-    color: var(--background);
+    background-color: var(--background);
+    color: var(--foreground);
     padding: 10px 20px;
-    border: none;
+    border: 1px solid var(--foreground);
     border-radius: 25px;
     font-size: 14px;
     font-weight: 500;
@@ -121,8 +122,9 @@
 }
 
 .hero-button:hover {
-    background-color: #ff4d5a;
-    color: #fff;
+    background-color: #E0F11F;
+    border: 1px solid #E0F11F;
+    color: var(--background);
 }
 
 @media (max-width: 768px) {
@@ -147,8 +149,12 @@
         height: 120px;
     }
 
+    .hero-name {
+        margin-bottom: 40px;
+    }
+
     .hero-title {
-        font-size: 28px;
+        font-size: 35px;
     }
 
     .hero-description {
@@ -156,7 +162,14 @@
     }
 
     .hero-button {
-        font-size: 12px;
+        font-size: 15px;
         padding: 6px 12px;
     }
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
 }

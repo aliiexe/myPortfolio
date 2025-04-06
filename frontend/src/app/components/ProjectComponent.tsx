@@ -2,6 +2,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import "../styles/ProjectComponent.css";
+import { useEffect } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
+
 
 const projects = [
   {
@@ -82,9 +87,85 @@ const projects = [
 ];
 
 const ProjectComponent = () => {
+    useEffect(() => {
+
+      gsap.from(".project-image", {
+          x: 30,
+          opacity: 0,
+          duration: 1,
+          ease: "power2.out",
+          stagger: 0.2,
+          scrollTrigger: {
+              trigger: ".projects-section",
+              start: "top 60%",
+              end: "bottom 20%",
+              once: true,
+          },
+          delay: 0.7,
+      });
+
+      gsap.from(".project-overlay", {
+          x: 30,
+          opacity: 0,
+          duration: 1,
+          ease: "power2.out",
+          stagger: 0.2,
+          scrollTrigger: {
+              trigger: ".projects-section",
+              start: "top 60%",
+              end: "bottom 20%",
+              once: true,
+          },
+          delay: 0.5,
+      });
+
+      gsap.from(".browse-all", {
+          blur: ("10px"),
+          opacity: 0,
+          duration: 1,
+          ease: "power2.out",
+          stagger: 0.2,
+          scrollTrigger: {
+              trigger: ".projects-section",
+              start: "top 60%",
+              end: "bottom 20%",
+              once: true,
+          },
+          delay: 1.5,
+      });
+  
+      gsap.utils.toArray(".project-image").forEach((image) => {
+        const element = image as HTMLElement;
+        gsap.to(element, {
+          scale: 1.2,
+          ease: "none",
+          scrollTrigger: {
+            trigger: element,
+            start: "top 50%",
+            end: "bottom top",
+            scrub: true,
+          },
+        });
+      });
+
+      gsap.from(".projects-title", {
+          y: 100,
+          filter: "blur(10px)",
+          opacity: 0,
+          duration: 1.5,
+          ease: "power3.out",
+          scrollTrigger: {
+              trigger: ".carousel",
+              start: "top 60%",
+              end: "top 50%",
+              once: true,
+          },
+      });
+  }, []);
+
   return (
     <section className="projects-section">
-      <h2 className="projects-title text-xl sm:text-2xl md:text-3xl lg:text-4xl">My Projects</h2>
+      <h2 className="projects-title text-xl sm:text-2xl md:text-3xl lg:text-4xl" data-animate="true">My Projects</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <div className="grid grid-rows-2 md:grid-rows-2 gap-6">
           <div className="row-span-1 md:row-span-4">
