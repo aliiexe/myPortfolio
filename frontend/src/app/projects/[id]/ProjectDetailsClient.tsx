@@ -1,10 +1,52 @@
 "use client";
+import { useState, useEffect } from "react";
 import "../../styles/ProjectDetailsClient.css";
 
 const ProjectDetailsClient = ({ project }: { project: any }) => {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [fade, setFade] = useState(false);
+  const [resetTimer, setResetTimer] = useState(false);
+  const [isRowLayout, setIsRowLayout] = useState(false);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (!resetTimer) {
+        setFade(true);
+        setTimeout(() => {
+          setCurrentImageIndex((prevIndex) =>
+            (prevIndex + 1) % project.images.length
+          );
+          setFade(false);
+        }, 500);
+      } else {
+        setResetTimer(false);
+      }
+    }, 10000);
+
+    return () => clearInterval(interval);
+  }, [project.images.length, resetTimer]);
+
+  const handleImageClick = (index: number) => {
+    setFade(true);
+    setTimeout(() => {
+      setCurrentImageIndex(index);
+      setFade(false);
+    }, 500);
+    setResetTimer(true);
+  };
+
+  useEffect(() => {
+    const img = new Image();
+    img.src = project.images[0];
+    img.onload = () => {
+      if (img.height > img.width) {
+        setIsRowLayout(true);
+      }
+    };
+  }, [project.images]);
+
   return (
-    <div className="project-details">
-      {/* Title and Category */}
+    <div className={`project-details ${isRowLayout ? "row-layout" : ""}`}>
       <div className="project-header">
         <h1 className="project-title">{project.title}</h1>
         <p className="project-category">
@@ -12,26 +54,31 @@ const ProjectDetailsClient = ({ project }: { project: any }) => {
         </p>
       </div>
 
-      {/* Main Media (First Image or Video) */}
-      <div className="project-main-media">
-        <img
-          src={project.images[0]}
-          alt={`${project.title} main media`}
-          className="main-media"
-        />
-      </div>
-
-      {/* Remaining Images */}
-      <div className="project-images">
-        {project.images.slice(1).map((image: string, index: number) => (
-          <div key={index} className="project-image-wrapper">
-            <img
-              src={image}
-              alt={`${project.title} image ${index + 2}`}
-              className="project-image"
-            />
-          </div>
-        ))}
+      <div className="project-media">
+        <div className={`project-main-media ${fade ? "fade" : ""}`}>
+          <img
+            src={project.images[currentImageIndex]}
+            alt={`${project.title} main media`}
+            className="main-media"
+          />
+        </div>
+        <div className="project-images">
+          {project.images.map((image: string, index: number) => (
+            <div
+              key={index}
+              className={`project-image-wrapper ${
+                index === currentImageIndex ? "active" : ""
+              }`}
+              onClick={() => handleImageClick(index)}
+            >
+              <img
+                src={image}
+                alt={`${project.title} image ${index + 1}`}
+                className="project-image"
+              />
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* Links */}
@@ -65,29 +112,38 @@ const ProjectDetailsClient = ({ project }: { project: any }) => {
       )}
 
       {/* Description */}
-      <div className="project-section">
-        <p className="section-content">{project.description}</p>
-      </div>
+      {project.description && (
+        <div className="project-section">
+          <div
+            className="section-content"
+            dangerouslySetInnerHTML={{ __html: project.description }}
+          ></div>
+        </div>
+      )}
 
       {/* Technologies */}
-      <div className="project-section">
-        <h2 className="section-title">Technologies</h2>
-        <ul className="section-list">
-          {project.technologies.map((tech: string, index: number) => (
-            <li key={index}>{tech}</li>
-          ))}
-        </ul>
-      </div>
+      {project.technologies && project.technologies.length > 0 && (
+        <div className="project-section">
+          <h2 className="section-title">Technologies</h2>
+          <ul className="section-list">
+            {project.technologies.map((tech: string, index: number) => (
+              <li key={index}>{tech}</li>
+            ))}
+          </ul>
+        </div>
+      )}
 
       {/* Tools */}
-      <div className="project-section">
-        <h2 className="section-title">Tools</h2>
-        <ul className="section-list">
-          {project.tools.map((tool: string, index: number) => (
-            <li key={index}>{tool}</li>
-          ))}
-        </ul>
-      </div>
+      {project.tools && project.tools.length > 0 && (
+        <div className="project-section">
+          <h2 className="section-title">Tools</h2>
+          <ul className="section-list">
+            {project.tools.map((tool: string, index: number) => (
+              <li key={index}>{tool}</li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 };

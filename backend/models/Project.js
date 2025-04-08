@@ -8,7 +8,7 @@ const ProjectSchema = new mongoose.Schema({
   images: { type: [String], required: false },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
-  isFeatured: { type: Boolean, default: false },
+  isFeatured: { type: Boolean, default: false }, // indicates if the project is featured which means that it will be shown in the home page
   category: { type: String, required: false },
   projectType: { type: String, enum: ["personal", "freelance", "design"], required: true },
   clientName: { type: String, required: false },

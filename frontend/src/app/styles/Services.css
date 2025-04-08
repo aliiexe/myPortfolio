@@ -64,17 +64,21 @@
 }
 
 @media (max-width: 768px) {
+    .section-heading{
+        font-size: 35px;
+    }
+
     .service-card {
         width: 100%;
     }
     .services-section {
-        margin-top: -480px;
+        margin-top: -280px;
     }
 }
 
 @media (max-width: 480px) {
     .services-section {
-        margin-top: -280px;
+        margin-top: -80px;
     }
     .section-heading {
         font-size: 35px;
