@@ -8,6 +8,8 @@ import "react-toastify/dist/ReactToastify.css";
 import "../styles/Contact.css";
 import { gsap } from "gsap";
 import emailjs from "emailjs-com";
+import { motion } from 'framer-motion';
+import Link from 'next/link';
 
 export default function Contact() {
   const [contactName, setContactName] = useState("");
@@ -181,9 +183,10 @@ export default function Contact() {
 
   return (
     <div className="contact-page-container" style={{ marginTop: isContactPage ? "150px" : "0" }}>
+      
       <h1 className="contact-title" data-animate="true">Contact Me</h1>
       <ToastContainer
-        position="top-right"
+        position="bottom-center"
         autoClose={5000}
         hideProgressBar={false}
         newestOnTop={false}
@@ -335,6 +338,7 @@ export default function Contact() {
             ))}
           </div>
       </div>
+      
     </div>
   );
 }
