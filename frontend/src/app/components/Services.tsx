@@ -1,6 +1,9 @@
 "use client";
 import "../styles/Services.css";
 import { FaLaptopCode, FaCogs, FaPaintBrush } from "react-icons/fa";
+import { useEffect } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export default function Services() {
     const services = [
@@ -20,6 +23,39 @@ export default function Services() {
             description: "Creative, on-brand visuals that capture attention and communicate clearly.",
         },
     ];
+
+    useEffect(() => {
+        gsap.registerPlugin(ScrollTrigger);
+          gsap.from(".section-heading", {
+                y: 100,
+                filter: "blur(10px)",
+                opacity: 0,
+                duration: 1.5,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: ".carousel",
+                    start: "top 60%",
+                    end: "top 50%",
+                    once: true,
+                },
+          });
+    
+          gsap.from(".services-container", {
+                y: 100,
+                filter: "blur(10px)",
+                opacity: 0,
+                duration: 1.5,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: ".carousel",
+                    start: "top 60%",
+                    end: "top 50%",
+                    once: true,
+                },
+                stagger: 0.8,
+                delay: 0.5,
+          });
+      }, []);
 
     return (
         <section className="services-section">

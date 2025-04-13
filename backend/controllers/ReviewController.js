@@ -1,16 +1,13 @@
 import Review from "../models/Review.js";
 
-// Create a new review
 export const createReview = async (req, res) => {
   try {
     const { name, email, content, rating, image } = req.body;
 
-    // Validate required fields
     if (!name || !email || !content || !rating) {
       return res.status(400).json({ message: "All fields except image are required." });
     }
 
-    // Create and save the review
     const review = new Review({ name, email, content, rating, image });
     await review.save();
 
@@ -20,17 +17,15 @@ export const createReview = async (req, res) => {
   }
 };
 
-// Get all reviews
 export const getAllReviews = async (req, res) => {
   try {
-    const reviews = await Review.find().sort({ createdAt: -1 }); // Sort by newest first
+    const reviews = await Review.find().sort({ createdAt: 1 });
     res.status(200).json(reviews);
   } catch (error) {
     res.status(500).json({ message: "Failed to fetch reviews.", error: error.message });
   }
 };
 
-// Get approved reviews
 export const getApprovedReviews = async (req, res) => {
   try {
     const reviews = await Review.find({ approved: "approved" }).sort({ createdAt: -1 });
@@ -40,13 +35,11 @@ export const getApprovedReviews = async (req, res) => {
   }
 };
 
-// Approve or reject a review
 export const updateReviewStatus = async (req, res) => {
   try {
     const { id } = req.params;
     const { approved } = req.body;
 
-    // Validate the approved field
     if (!["approved", "rejected", "pending"].includes(approved)) {
       return res.status(400).json({ message: "Invalid status value." });
     }
