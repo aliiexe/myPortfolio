@@ -7,6 +7,56 @@ import { useEffect } from "react";
 
 const projects = [
   {
+    _id: "6",
+    title: "Cre8.ma",
+    description: `
+      Cre8.ma is my personal creative and marketing agency based in Morocco, serving clients worldwide. We specialize in building digital brand identities, visual systems, and online presence that help people and businesses stand out. Our slogan: "we build digital, you build Legacy" reflects our mission to craft durable digital foundations while empowering clients to own their success.</br></br>
+      The website is built with Next.js, Tailwind CSS, and GSAP for smooth, modern interactions, and is deployed on Vercel for performance and reliability.
+    `,
+    technologies: ["Next.js", "Tailwind CSS", "GSAP"],
+    link: "https://cre8-ma.vercel.app/",
+    images: [
+      "/images/projects/cre8ma1.png",
+      "/images/projects/cre8ma2.png",
+      "/images/projects/cre8ma3.png",
+      "/images/projects/cre8ma4.png",
+      "/images/projects/cre8ma5.png",
+      "/images/projects/cre8ma6.png"
+    ],
+    createdAt: "2025-01-01T00:00:00Z",
+    updatedAt: "2025-01-15T00:00:00Z",
+    isFeatured: true,
+    category: "Web Development",
+    projectType: "Freelance",
+    clientName: "Cre8.ma",
+    tools: ["VS Code", "Git", "Figma", "Vercel", "GSAP"],
+  },
+  {
+    _id: "7",
+    title: "fullflow",
+    description: `
+      fullflow delivers AI-powered solutions for modern workflows along with services across Digital Products & Web, Growth & Support, and Creative & Branding. The platform is built using Next.js, Tailwind CSS, and GSAP, with integrated PayPal payments and SendGrid for transactional and marketing emails.</br></br>
+      This project highlights scalable product architecture, smooth motion, and production-ready integrations for payments and email delivery.
+    `,
+    technologies: ["Next.js", "Tailwind CSS", "GSAP", "PayPal", "SendGrid"],
+    link: "https://www.fullflow.solutions/",
+    images: [
+      "/images/projects/fullflow1.png",
+      "/images/projects/fullflow2.png",
+      "/images/projects/fullflow3.png",
+      "/images/projects/fullflow4.png",
+      "/images/projects/fullflow5.png",
+      "/images/projects/fullflow6.png"
+    ],
+    createdAt: "2025-02-01T00:00:00Z",
+    updatedAt: "2025-02-15T00:00:00Z",
+    isFeatured: true,
+    category: "Web Development",
+    projectType: "Freelance",
+    clientName: "fullflow",
+    tools: ["Vercel", "GSAP", "PayPal", "SendGrid"],
+  },
+  {
     _id: "1",
     title: "EKS Reparation",
     description: `
@@ -98,12 +148,13 @@ const projects = [
     images: ["/images/projects/portfolio1.png", "/images/projects/portfolio2.png", "/images/projects/portfolio3.png", "/images/projects/portfolio4.png", "/images/projects/portfolio5.png"],
     createdAt: "2023-05-01T00:00:00Z",
     updatedAt: "2023-05-15T00:00:00Z",
-    isFeatured: true,
+    isFeatured: false,
     category: "Web Development",
     projectType: "Personal",
     clientName: null,
     tools: ["Figma","Vercel","Namecheap","GitHub","MongoDB Atlas","GSAP"],
   },
+  
 ];
 
 const ProjectsPage = () => {

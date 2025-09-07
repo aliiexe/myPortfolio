@@ -1,12 +1,14 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { FaPaperPlane, FaLinkedin, FaInstagram, FaGithub, FaYoutube, FaTiktok } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../styles/Contact.css";
 import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
 import emailjs from "emailjs-com";
 import { motion } from 'framer-motion';
 import Link from 'next/link';
@@ -44,41 +46,48 @@ export default function Contact() {
     }
   };
   
+  const rootRef = useRef<HTMLDivElement | null>(null);
+
   useEffect(() => {
     if (typeof window !== "undefined") {
       setIsContactPage(window.location.pathname === "/contact");
     }
-    gsap.from(".contact-title", {
-          y: 100,
-          filter: "blur(10px)",
-          opacity: 0,
-          duration: 1.5,
-          ease: "power3.out",
-          scrollTrigger: {
-              trigger: ".carousel",
-              start: "top 60%",
-              end: "top 50%",
-              once: true,
-          },
-    });
+    const ctx = gsap.context(() => {
+      gsap.from(".contact-title", {
+        y: 32,
+        filter: "blur(10px)",
+        opacity: 0,
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".contact-page-container",
+          start: "top 70%",
+          once: true,
+        },
+      });
 
-    gsap.from(".contact-page", {
-          y: 100,
-          filter: "blur(10px)",
-          opacity: 0,
-          duration: 1.5,
-          ease: "power3.out",
-          scrollTrigger: {
-              trigger: ".carousel",
-              start: "top 60%",
-              end: "top 50%",
-              once: true,
-          },
-          stagger: 0.8,
-          delay: 0.5,
-    });
+      gsap.from(".contact-page", {
+        y: 32,
+        filter: "blur(10px)",
+        opacity: 0,
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".contact-page-container",
+          start: "top 70%",
+          once: true,
+        },
+        stagger: 0.2,
+        delay: 0.2,
+      });
+
+      // Clear inline styles when done
+      gsap.set(".contact-title, .contact-page", { clearProps: "filter,opacity,transform" });
+    }, rootRef);
 
     fetchComments();
+
+    return () => ctx.revert();
   }, []);
 
   const handleUpload = async (file: File) => {
@@ -182,7 +191,7 @@ export default function Contact() {
   };
 
   return (
-    <div className="contact-page-container" style={{ marginTop: isContactPage ? "150px" : "0" }}>
+    <div ref={rootRef} className="contact-page-container" style={{ marginTop: isContactPage ? "150px" : "0" }}>
       
       <h1 className="contact-title" data-animate="true">Contact Me</h1>
       <ToastContainer
@@ -238,11 +247,17 @@ export default function Contact() {
 
           <h4 className="sectionTitle">Connect With Me</h4>
           <div className="social-links">
-            <a href="#" aria-label="LinkedIn"><FaLinkedin size={24} /></a>
-            <a href="#" aria-label="Instagram"><FaInstagram size={24} /></a>
-            <a href="#" aria-label="YouTube"><FaYoutube size={24} /></a>
-            <a href="#" aria-label="GitHub"><FaGithub size={24} /></a>
-            <a href="#" aria-label="TikTok"><FaTiktok size={24} /></a>
+            <a href="https://www.linkedin.com/in/ali-bourak/" aria-label="LinkedIn"><FaLinkedin size={24} /></a>
+            <a href="https://www.instagram.com/bourakalii/" aria-label="Instagram"><FaInstagram size={24} /></a>
+            {/* <a href="#" aria-label="YouTube"><FaYoutube size={24} /></a> */}
+            <a href="https://github.com/aliiexe/" aria-label="GitHub"><FaGithub size={24} /></a>
+            {/* <a href="#" aria-label="TikTok"><FaTiktok size={24} /></a> */}
+            {/* X.com */}
+            <a href="https://x.com/a78bk6" aria-label="X">
+              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" />
+              </svg>
+            </a>
           </div>
         </div>
 

@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import "../../styles/ProjectDetailsClient.css";
 
 const ProjectDetailsClient = ({ project }: { project: any }) => {
@@ -7,9 +7,10 @@ const ProjectDetailsClient = ({ project }: { project: any }) => {
   const [fade, setFade] = useState(false);
   const [resetTimer, setResetTimer] = useState(false);
   const [isRowLayout, setIsRowLayout] = useState(false);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    intervalRef.current = setInterval(() => {
       if (!resetTimer) {
         setFade(true);
         setTimeout(() => {
@@ -23,7 +24,9 @@ const ProjectDetailsClient = ({ project }: { project: any }) => {
       }
     }, 10000);
 
-    return () => clearInterval(interval);
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
   }, [project.images.length, resetTimer]);
 
   const handleImageClick = (index: number) => {

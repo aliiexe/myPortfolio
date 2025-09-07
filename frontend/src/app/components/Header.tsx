@@ -5,27 +5,14 @@ import { gsap } from "gsap";
 import Link from "next/link"; // Import Next.js Link component
 
 export default function Header() {
-    useEffect(() => {
-        // Animate the header icons with fade-up and blur effect
-        gsap.from(".icon-container", {
-            opacity: 0,
-            y: 10, // Slide up from below
-            filter: "blur(10px)", // Start with a blur
-            duration: 1, // Animation duration
-            ease: "power3.out", // Smooth easing
-            stagger: 0.2, // Delay between each icon
-            delay: 0.5, // Delay to sync with other animations
-        });
-        gsap.from(".header", {
-            opacity: 0,
-            y: 10, // Slide up from below
-            filter: "blur(10px)", // Start with a blur
-            duration: 1, // Animation duration
-            ease: "power3.out", // Smooth easing
-            stagger: 0.2, // Delay between each icon
-            delay: 0.3, // Delay to sync with other animations
-        });
-    }, []);
+        useEffect(() => {
+                const tl = gsap.timeline({ defaults: { duration: 0.6, ease: "power3.out" } });
+                tl.from(".header", { opacity: 0, y: 8, filter: "blur(6px)" }, 0)
+                    .from(".icon-container", { opacity: 0, y: 8, filter: "blur(6px)", stagger: 0.1 }, 0.05)
+                    .add(() => {
+                        gsap.set(".header, .icon-container", { clearProps: "filter,opacity,transform" });
+                    });
+        }, []);
 
     return (
         <header className="header">
@@ -41,10 +28,10 @@ export default function Header() {
                 <img src="/icons/projectsIcon.svg" alt="Projects" className="icon" />
                 <span className="tooltip">Projects</span>
             </Link>
-            <Link href="/experiences" className="icon-container" title="Experiences" aria-label="Experiences">
+            {/* <Link href="/experiences" className="icon-container" title="Experiences" aria-label="Experiences">
                 <img src="/icons/experienceIcon.svg" alt="Experiences" className="icon" />
                 <span className="tooltip">Experiences</span>
-            </Link>
+            </Link> */}
             <Link href="/contact" className="icon-container" title="Contact" aria-label="Contact">
                 <img src="/icons/contactIcon.svg" alt="Contact" className="icon" />
                 <span className="tooltip">Contact</span>

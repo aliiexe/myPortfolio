@@ -1,6 +1,6 @@
 import "./globals.css";
 import Header from './components/Header';
-import SmoothScroll from "./SmoothScroll.component";
+import LenisProvider from './components/LenisProvider';
 
 export default function RootLayout({
   children,
@@ -10,10 +10,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        {/* <SmoothScroll> */}
-        <Header />
-        {children}
-        {/* </SmoothScroll> */}
+        <LenisProvider>
+          <Header />
+          {children}
+        </LenisProvider>
       </body>
     </html>
   );

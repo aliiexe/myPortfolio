@@ -3,18 +3,20 @@ import '../styles/HomeAbout.css';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import SplitType from 'split-type';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function About() {
+    const rootRef = useRef<HTMLElement | null>(null);
     useEffect(() => {
         const typeSplit = new SplitType("[data-animate]", {
             types: "lines,words,chars",
             tagName: "span",
         });
 
-        gsap.from("[data-animate] .word", {
+    const ctx = gsap.context(() => {
+    gsap.from("[data-animate] .word", {
             opacity: 0.3,
             duration: 1.5,
             ease: "power1.out",
@@ -38,9 +40,9 @@ export default function About() {
                 end: "top 50%",
                 once: true,
             },
-        });
+    });
 
-        gsap.from(".about-text", {
+    gsap.from(".about-text", {
             y: 100,
             opacity: 0,
             filter: "blur(10px)",
@@ -51,7 +53,7 @@ export default function About() {
                 start: "top 60%",
                 once: true,
             },
-        });
+    });
 
         const imageContainer = document.querySelector(".about-image-container") as HTMLElement;
         const image = document.querySelector(".about-image") as HTMLElement;
@@ -119,10 +121,13 @@ export default function About() {
                 });
             });
         }
+        gsap.set("[data-animate] .word, .about-image-container, .about-text", { clearProps: "filter,opacity,transform" });
+        }, rootRef);
+        return () => ctx.revert();
     }, []);
 
     return (
-        <section className="about-section">
+        <section className="about-section" ref={rootRef as any}>
             <div className="about-content">
                 <div className="about-text">
                     <h1 className="about-title" data-animate="true">Who am I?</h1>

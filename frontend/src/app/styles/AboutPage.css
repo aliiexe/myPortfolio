@@ -3,3 +3,42 @@
 h1, h2{
     font-family: 'Big Shoulders Display', sans-serif;
 }
+
+.about-section {
+    color: #fff;
+}
+
+.about-section p {
+    line-height: 1.7;
+}
+
+/* Minimalist neutral accents */
+.about-title-accent { color: inherit; }
+
+.about-list {
+    margin: 0;
+    padding-left: 1rem;
+    list-style: disc;
+    color: #d4d4d8; /* zinc-300 */
+}
+.about-list li { margin-bottom: 0.5rem; }
+
+.tag {
+    display: inline-block;
+    padding: 0.25rem 0.6rem;
+    border-radius: 9999px;
+    border: 1px solid #3f3f46; /* zinc-800 */
+    color: #e5e7eb; /* zinc-200 */
+    font-size: 0.85rem;
+}
+
+.cta-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1rem;
+    border-radius: 9999px;
+    border: 1px solid #3f3f46;
+    color: #e5e7eb;
+}
+.cta-outline:hover { background: #0d0d0d; }
