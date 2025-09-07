@@ -44,8 +44,8 @@ const ProjectDetails = async ({ params }: { params: Promise<{ id: string }> }) =
       The project encompassed a full suite of design deliverables including the distinctive OpportunAI logo, promotional materials such as posters and social media content for Instagram, event badges for participants, various printed collateral, stickers, and branded merchandise. Each element was thoughtfully crafted to communicate the intersection of AI technology and opportunity while maintaining visual consistency with Google's established aesthetic.</br></br>
       Using industry-standard design tools including Figma for UI/UX work and Adobe's creative suite (Illustrator and Photoshop) for graphic elements, I developed a cohesive brand identity that effectively represented the hackathon's mission. Though not featured in my primary portfolio, this project demonstrates my ability to work within established brand parameters while creating engaging visual solutions for technology-focused events.
     `,
-    technologies: "null",
-    link: "null",
+    technologies: ["Figma", "Adobe Illustrator", "Adobe Photoshop"],
+    link: null,
     images: ["/images/projects/opportunai1.png", "/images/projects/opportunai2.png", "/images/projects/opportunai3.png", "/images/projects/opportunai4.png", "/images/projects/opportunai5.png", "/images/projects/opportunai6.png"],
     createdAt: "2023-02-01T00:00:00Z",
     updatedAt: "2023-02-15T00:00:00Z",

@@ -125,7 +125,7 @@ const ProjectDetailsClient = ({ project }: { project: any }) => {
       )}
 
       {/* Technologies */}
-      {project.technologies && project.technologies.length > 0 && (
+      {project.technologies && Array.isArray(project.technologies) && project.technologies.length > 0 && (
         <div className="project-section">
           <h2 className="section-title">Technologies</h2>
           <ul className="section-list">
