@@ -1,9 +1,9 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import Image from "next/image";
 import { getProjectBySlug, getAllSlugs, getProjects } from "@/lib/content";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
+import { ProjectHeroCarousel } from "@/components/projects/ProjectHeroCarousel";
 
 const categoryLabels: Record<string, string> = {
   cybersecurity: "Cybersecurity",
@@ -78,14 +78,7 @@ export default async function ProjectDetailPage({
 
           {/* 3. Hero image */}
           <div className="overflow-hidden rounded-3xl border border-[var(--glass-border)] bg-[var(--color-bg-elevated)] shadow-[var(--shadow-card)]">
-            <Image
-              src={project.images[0]}
-              alt=""
-              width={1400}
-              height={780}
-              className="aspect-video w-full object-cover"
-              priority
-            />
+            <ProjectHeroCarousel images={project.images} />
           </div>
 
           {/* 4. Main content + metadata rail */}

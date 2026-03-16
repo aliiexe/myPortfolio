@@ -8,11 +8,11 @@ import { site } from "@/lib/content";
 
 export function Hero() {
   const sectionRef = useRef<HTMLElement | null>(null);
+  const imageRef = useRef<HTMLDivElement | null>(null);
   const nameRef = useRef<HTMLHeadingElement | null>(null);
   const taglineRef = useRef<HTMLParagraphElement | null>(null);
   const summaryRef = useRef<HTMLParagraphElement | null>(null);
   const ctaRef = useRef<HTMLDivElement | null>(null);
-  const rightRef = useRef<HTMLDivElement | null>(null);
   const scrollCueRef = useRef<HTMLDivElement | null>(null);
   const reduced = useReducedMotion();
   const [mounted, setMounted] = useState(false);
@@ -27,11 +27,11 @@ export function Hero() {
     if (reduced) {
       gsap.set(
         [
+          imageRef.current,
           nameRef.current,
           taglineRef.current,
           summaryRef.current,
           ctaRef.current,
-          rightRef.current,
           scrollCueRef.current,
         ],
         { opacity: 1, y: 0 }
@@ -43,11 +43,11 @@ export function Hero() {
       const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
       tl.set(
         [
+          imageRef.current,
           nameRef.current,
           taglineRef.current,
           summaryRef.current,
           ctaRef.current,
-          rightRef.current,
           scrollCueRef.current,
         ],
         {
@@ -55,11 +55,15 @@ export function Hero() {
           y: 28,
         }
       )
-        .to(nameRef.current, { opacity: 1, y: 0, duration: 0.7 }, 0.3)
+        .to(
+          imageRef.current,
+          { opacity: 1, y: 0, scale: 1, duration: 0.7 },
+          0.1
+        )
+        .to(nameRef.current, { opacity: 1, y: 0, duration: 0.7 }, 0.25)
         .to(taglineRef.current, { opacity: 1, y: 0, duration: 0.5 }, 0.6)
         .to(summaryRef.current, { opacity: 1, y: 0, duration: 0.5 }, 0.8)
         .to(ctaRef.current, { opacity: 1, y: 0, duration: 0.5 }, 1.0)
-        .to(rightRef.current, { opacity: 1, y: 0, duration: 0.6 }, 1.1)
         .to(scrollCueRef.current, { opacity: 0.8, y: 0, duration: 0.4 }, 1.4);
     }, sectionRef);
 
@@ -79,13 +83,16 @@ export function Hero() {
         }}
       />
 
-      <div className="relative z-10 mx-auto max-w-6xl px-5 sm:px-6 md:px-8">
-        <div className="relative overflow-hidden rounded-3xl border border-[var(--glass-border)] bg-[var(--glass-bg)] px-6 py-12 shadow-[var(--shadow-card)] backdrop-blur-[var(--glass-blur)] sm:px-10 sm:py-16">
+      <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 md:px-8">
+        <div className="relative overflow-hidden rounded-3xl border border-[var(--glass-border)] bg-[var(--glass-bg)] px-5 py-10 shadow-[var(--shadow-card)] backdrop-blur-[var(--glass-blur)] sm:px-8 sm:py-14">
           {/* Two-part hero: large image and clean copy */}
-          <div className="grid gap-8 lg:grid-cols-[minmax(0,0.42fr)_minmax(0,0.58fr)] lg:items-center">
+          <div className="grid gap-5 md:gap-8 md:grid-cols-[minmax(0,0.42fr)_minmax(0,0.58fr)] md:items-center lg:gap-9">
             {/* Portrait block */}
-            <div className="flex justify-center lg:justify-end">
-              <div className="relative h-[26rem] w-64 overflow-hidden rounded-3xl bg-[var(--color-bg-elevated)] sm:h-[28rem] sm:w-72">
+            <div className="mb-8 flex justify-center md:mb-0 md:justify-start md:pl-1 lg:pl-2">
+              <div
+                ref={imageRef}
+                className="relative h-[23rem] w-56 overflow-hidden rounded-3xl bg-[var(--color-bg-elevated)] opacity-0 sm:h-[25rem] sm:w-64 md:h-[27rem] md:w-72 lg:h-[28rem]"
+              >
                 <div
                   className="absolute inset-0 opacity-60"
                   style={{
@@ -109,7 +116,7 @@ export function Hero() {
             </div>
 
             {/* Text block */}
-            <div className="space-y-7 lg:pl-2">
+            <div className="space-y-7 md:pr-1 lg:pr-2">
               <p
                 ref={taglineRef}
                 className="text-xs font-medium text-[var(--color-muted)]"

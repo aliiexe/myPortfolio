@@ -29,9 +29,9 @@ export default function ResumePage() {
             href={site.cvUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center rounded-xl bg-[var(--color-signature)] px-7 py-4 text-sm font-medium text-white no-underline shadow-[0_0_40px_var(--color-signature-soft)] transition-shadow hover:shadow-[0_0_60px_var(--color-signature-glow)]"
+            className="inline-flex items-center rounded-xl bg-[var(--color-signature)] px-6 py-3.5 text-xs sm:text-sm font-medium text-white no-underline shadow-[0_0_40px_var(--color-signature-soft)] transition-shadow hover:shadow-[0_0_60px_var(--color-signature-glow)] whitespace-nowrap"
           >
-            Download CV
+            Download resume
           </a>
         </div>
 
@@ -52,7 +52,11 @@ export default function ResumePage() {
                     {exp.title}
                   </h3>
                   <span className="text-sm text-[var(--color-muted)]">
-                    {exp.startDate} — {exp.isCurrent ? "Present" : exp.endDate ?? "—"}
+                    {exp.isCurrent
+                      ? `${exp.startDate} — Present`
+                      : exp.endDate
+                      ? `${exp.startDate} — ${exp.endDate}`
+                      : exp.startDate}
                   </span>
                 </div>
                 <p className="text-sm text-[var(--color-muted)]">{exp.company}</p>
@@ -88,7 +92,11 @@ export default function ResumePage() {
                   <p className="text-sm text-[var(--color-muted)]">{ed.location}</p>
                 )}
                 <p className="text-sm text-[var(--color-muted)]">
-                  {ed.startDate} — {ed.isCurrent ? "Present" : ed.endDate ?? "—"}
+                  {ed.isCurrent
+                    ? `${ed.startDate} — Present`
+                    : ed.endDate
+                    ? `${ed.startDate} — ${ed.endDate}`
+                    : ed.startDate}
                 </p>
                 {ed.notes && (
                   <p className="mt-2 text-sm text-[var(--color-foreground-muted)]">

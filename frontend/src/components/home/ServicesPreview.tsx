@@ -14,9 +14,10 @@ export function ServicesPreview() {
   return (
     <Section ref={ref} id="services">
       <motion.div
-        className="relative overflow-hidden rounded-3xl border border-[var(--glass-border)] bg-[var(--glass-bg)] p-10 backdrop-blur-[var(--glass-blur)] md:p-14"
+        className="relative overflow-hidden rounded-3xl border border-[var(--glass-border)] bg-[var(--glass-bg)] p-10 backdrop-blur-[var(--glass-blur)] md:p-14 lg:p-16"
         initial={{ opacity: 0, y: 28 }}
         animate={mounted && inView ? { opacity: 1, y: 0 } : {}}
+        whileHover={{ y: -4, boxShadow: "0 24px 80px rgba(0,0,0,0.55)" }}
         transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
       >
         <div
@@ -27,63 +28,55 @@ export function ServicesPreview() {
           }}
           aria-hidden
         />
-        <div className="relative grid gap-8 md:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
-          <div>
-            <p className="text-xs font-medium uppercase tracking-[0.08em] text-[var(--color-muted)]">
-              Freelance / services
+        <div className="relative grid gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:items-start">
+          {/* Left column: summary */}
+          <div className="max-w-xl space-y-4">
+            <p className="text-xs font-medium text-[var(--color-muted)]">
+              Freelance services
             </p>
             <h2
-              className="mt-3 font-display text-2xl font-semibold tracking-tight text-[var(--color-foreground)] sm:text-3xl"
+              className="font-display text-2xl font-semibold tracking-tight text-[var(--color-foreground)] sm:text-3xl"
               style={{ fontFamily: "var(--font-display)" }}
             >
               Secure products, full‑stack builds, and digital presence.
             </h2>
-            <p className="mt-4 max-w-xl text-sm leading-relaxed text-[var(--color-foreground-muted)]">
-              Freelance services for startups, brands, founders, and technical
-              teams — with security, engineering quality, and design all in
-              the same conversation.
+            <p className="text-sm leading-relaxed text-[var(--color-foreground-muted)]">
+              Freelance work for startups, brands, and technical teams that
+              care about security, engineering quality, and a considered visual
+              identity.
+            </p>
+            <p className="text-xs text-[var(--color-muted)]">
+              Available for a small number of security‑aware freelance projects.
             </p>
           </div>
-          <div className="grid gap-6 text-sm text-[var(--color-foreground-muted)] sm:grid-cols-3">
-            <div>
-              <h3 className="text-xs font-semibold uppercase tracking-[0.08em] text-[var(--color-muted)]">
+
+          {/* Right column: two focused services + CTA */}
+          <div className="flex flex-col gap-6 text-sm text-[var(--color-foreground-muted)]">
+            <div className="space-y-1.5">
+              <h3 className="text-sm font-semibold text-[var(--color-foreground)]">
                 Secure web products
               </h3>
-              <p className="mt-2">
-                Web security, secure development, threat-aware architecture for
-                new or existing products.
+              <p className="leading-relaxed">
+                Design, build, or harden web apps so security and UX work
+                together from the start.
               </p>
             </div>
-            <div>
-              <h3 className="text-xs font-semibold uppercase tracking-[0.08em] text-[var(--color-muted)]">
+            <div className="space-y-1.5">
+              <h3 className="text-sm font-semibold text-[var(--color-foreground)]">
                 Full‑stack development
               </h3>
-              <p className="mt-2">
-                TypeScript, Next.js, and backend systems — from prototypes to
-                production-grade apps.
+              <p className="leading-relaxed">
+                TypeScript and Next.js products taken from prototype to
+                production with reliable backends.
               </p>
             </div>
-            <div>
-              <h3 className="text-xs font-semibold uppercase tracking-[0.08em] text-[var(--color-muted)]">
-                Design & digital presence
-              </h3>
-              <p className="mt-2">
-                Interfaces, visual identity, and portfolio/landing sites that
-                feel premium and intentional.
-              </p>
-            </div>
+            <Link
+              href="/contact"
+              className="mt-2 inline-flex w-fit items-center rounded-xl border border-[var(--color-border)] bg-[var(--glass-bg)] px-6 py-3 text-sm font-medium text-[var(--color-foreground)] backdrop-blur-[var(--glass-blur)] no-underline transition-colors hover:border-[var(--color-muted)] hover:bg-[var(--color-surface)]"
+            >
+              Discuss a project
+            </Link>
           </div>
-        </div>
-        <div className="relative mt-10 flex flex-wrap items-center justify-between gap-4 text-sm">
-          <p className="text-[var(--color-muted)]">
-            Available for selected, security‑aware freelance projects.
-          </p>
-          <Link
-            href="/contact"
-            className="inline-flex items-center rounded-xl border border-[var(--color-border)] bg-[var(--glass-bg)] px-6 py-3.5 text-sm font-medium text-[var(--color-foreground)] backdrop-blur-[var(--glass-blur)] no-underline transition-colors hover:border-[var(--color-muted)] hover:bg-[var(--color-surface)]"
-          >
-            Discuss a project
-          </Link>
         </div>
       </motion.div>
     </Section>

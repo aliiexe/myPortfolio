@@ -61,7 +61,7 @@ export const site = {
     ],
   },
   contact: {
-    email: "mail@alibourak.com",
+    email: "alibourak.work@gmail.com",
     linkedin: "https://www.linkedin.com/in/ali-bourak/",
     github: "https://github.com/aliiexe/",
     x: "https://x.com/a78bk6",

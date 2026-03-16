@@ -27,7 +27,7 @@ const projects: Project[] = [
       "/images/projects/cre8ma6.png",
     ],
     isFeatured: true,
-    projectType: "freelance",
+    projectType: "personal",
     clientName: "Cre8.ma",
   },
   {

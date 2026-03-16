@@ -18,8 +18,6 @@ export const resume: ResumeData = {
       company: "Ilem Group",
       location: "Casablanca, Morocco",
       startDate: "2024",
-      endDate: "2024",
-      isCurrent: true,
       description:
         "Worked on web and backend applications using Spring Boot, Angular, MySQL and frontend technologies. Contributed to IT asset management, internal ERP, institutional interfaces, and multilingual content, including REST APIs, authentication, Active Directory integration, and Docker-based deployment.",
       technologies: ["Java", "Spring Boot", "Angular", "MySQL", "Docker"],
@@ -28,9 +26,8 @@ export const resume: ResumeData = {
       title: "Freelance Developer & Designer",
       company: "Independent clients",
       location: "Remote",
-      startDate: "2023",
-      endDate: "Present",
-      isCurrent: true,
+      startDate: "2024",
+      isCurrent: false,
       description:
         "Freelance work across secure, production-ready web products and digital experiences for agencies, founders, and local businesses.",
       technologies: ["Next.js", "TypeScript", "Node.js", "Figma"],

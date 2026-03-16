@@ -15,11 +15,11 @@ export function Footer() {
 
   return (
     <footer className="border-t border-[var(--color-border-subtle)] bg-[var(--color-bg-elevated)]/50 py-10">
-      <Container className="flex flex-col items-center justify-between gap-4 sm:flex-row">
-        <p className="text-sm text-[var(--color-muted)]">
+      <Container className="flex flex-col items-center justify-between gap-4 sm:flex-row sm:items-center">
+        <p className="text-sm text-[var(--color-muted)] text-center sm:text-left">
           © {year} {site.name}. All rights reserved.
         </p>
-        <ul className="flex items-center gap-6" role="list">
+        <ul className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 sm:justify-end" role="list">
           {links.map(({ href, label }) => (
             <li key={href}>
               <Link

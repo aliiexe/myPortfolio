@@ -40,14 +40,14 @@ export default function AboutPage() {
                 aria-hidden
               />
               <img
-                src="/images/me2.png"
+                src="/images/me2cropped.png"
                 alt=""
                 className="relative z-10 h-full w-full object-cover"
                 width={256}
                 height={256}
               />
               <div className="absolute bottom-4 left-4 rounded-full bg-[var(--color-bg-surface)]/90 px-3 py-1 text-xs text-[var(--color-foreground-muted)]">
-                Security-first · Casablanca · UTC+1
+                Security-first · Casablanca
               </div>
             </div>
           </div>
