@@ -1,359 +1,111 @@
-"use client";
+import { Container } from "@/components/ui/Container";
+import { site } from "@/lib/content";
+import { ContactForm } from "@/components/contact/ContactForm";
 
-import { useState, useEffect, useRef } from "react";
-import { FaPaperPlane, FaLinkedin, FaInstagram, FaGithub, FaYoutube, FaTiktok } from "react-icons/fa";
-import { toast } from "react-toastify";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import "../styles/Contact.css";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-gsap.registerPlugin(ScrollTrigger);
-import emailjs from "emailjs-com";
-import { motion } from 'framer-motion';
-import Link from 'next/link';
+export const metadata = {
+  title: "Contact",
+  description: `For freelance work, collaborations, cybersecurity-related projects, or general opportunities.`,
+};
 
-export default function Contact() {
-  const [contactName, setContactName] = useState("");
-  const [contactEmail, setContactEmail] = useState("");
-  const [contactMessage, setContactMessage] = useState("");
-
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
-  const [photo, setPhoto] = useState<File | null>(null);
-  const [rating, setRating] = useState(5);
-  const [comments, setComments] = useState<Comment[]>([]);
-  const [isContactPage, setIsContactPage] = useState(false);
-
-
-  type Comment = {
-    name: string;
-    email: string;
-    content: string;
-    rating: number;
-    image: string | null;
-  };
-
-    const fetchComments = async () => {
-    try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/reviews/approved`);
-      if (!res.ok) throw new Error("Failed to fetch comments.");
-      const data = await res.json();
-      setComments(data);
-    } catch (err) {
-      console.error("Error fetching comments:", err);
-    }
-  };
-  
-  const rootRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      setIsContactPage(window.location.pathname === "/contact");
-    }
-    const ctx = gsap.context(() => {
-      gsap.from(".contact-title", {
-        y: 32,
-        filter: "blur(10px)",
-        opacity: 0,
-        duration: 1,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: ".contact-page-container",
-          start: "top 70%",
-          once: true,
-        },
-      });
-
-      gsap.from(".contact-page", {
-        y: 32,
-        filter: "blur(10px)",
-        opacity: 0,
-        duration: 1,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: ".contact-page-container",
-          start: "top 70%",
-          once: true,
-        },
-        stagger: 0.2,
-        delay: 0.2,
-      });
-
-      // Clear inline styles when done
-      gsap.set(".contact-title, .contact-page", { clearProps: "filter,opacity,transform" });
-    }, rootRef);
-
-    fetchComments();
-
-    return () => ctx.revert();
-  }, []);
-
-  const handleUpload = async (file: File) => {
-    const formData = new FormData();
-    formData.append("file", file);
-
-    const res = await fetch("/api/upload", {
-      method: "POST",
-      body: formData,
-    });
-
-    if (!res.ok) throw new Error("Failed to upload file.");
-    const data = await res.json();
-    return data.fileName;
-  };
-
-  const handleCommentSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-  
-    if (!name.trim() || !message.trim()) {
-      toast.error("Name and message are required.");
-      return;
-    }
-  
-    let photoName = null;
-    if (photo) {
-      try {
-        photoName = await handleUpload(photo);
-      } catch (error) {
-        console.error("File upload failed:", error);
-        toast.error("Failed to upload photo.");
-        return;
-      }
-    }
-  
-    const newComment = {
-      name: name.trim(),
-      email: email.trim(),
-      content: message.trim(),
-      rating,
-      image: photoName,
-    };
-  
-    try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/reviews`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newComment),
-      });
-  
-      if (!res.ok) {
-        const errorData = await res.json();
-        toast.error(errorData.message || "Failed to submit comment.");
-        return;
-      }
-  
-      setName("");
-      setEmail("");
-      setMessage("");
-      setPhoto(null);
-      setRating(5);
-      toast.success("Comment submitted successfully!");
-  
-      await fetchComments();
-    } catch (error) {
-      console.error("Error submitting comment:", error);
-      toast.error("An error occurred while submitting your comment.");
-    }
-  };
-
-  const handleEmailSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (!contactName.trim() || !contactEmail.trim() || !contactMessage.trim()) {
-      toast.error("All fields are required.");
-      return;
-    }
-
-    const templateParams = {
-      from_name: contactName,
-      from_email: contactEmail,
-      message: contactMessage,
-    };
-
-    try {
-      await emailjs.send(
-        "service_f25770c",
-        "template_xw44xkr",
-        templateParams,
-        "8LNefsQAfbsvtE4z6"
-      );
-
-      toast.success("Email sent successfully!");
-      setContactName("");
-      setContactEmail("");
-      setContactMessage("");
-    } catch (error) {
-      console.error("Error sending email:", error);
-      toast.error("Failed to send email. Please try again.");
-    }
-  };
-
+export default function ContactPage() {
   return (
-    <div ref={rootRef} className="contact-page-container" style={{ marginTop: isContactPage ? "150px" : "0" }}>
-      
-      <h1 className="contact-title" data-animate="true">Contact Me</h1>
-      <ToastContainer
-        position="bottom-center"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="dark"
-      />
-      <div className="contact-page">
-        {/* CONTACT FORM */}
-        <div className="contact-form">
-          <h2 className="sectionTitle">Get in Touch</h2>
-          <p className="form-subtitle">
-            Have something to discuss? Send me a message and let’s talk.
+    <article className="py-[var(--space-section)]">
+      <Container className="max-w-2xl">
+        {/* Intro */}
+        <header className="mb-10 space-y-4">
+          <p className="text-xs font-medium text-[var(--color-muted)]">Contact</p>
+          <h1
+            className="font-display text-[var(--text-display)] font-semibold tracking-tight text-[var(--color-foreground)]"
+            style={{ fontFamily: "var(--font-display)" }}
+          >
+            Contact
+          </h1>
+          <p className="max-w-xl text-[var(--color-foreground-muted)]">
+            For freelance work, collaborations, cybersecurity-related projects, or general opportunities.
           </p>
-          <form onSubmit={handleEmailSubmit}>
-            <div className="form-group">
-              <input
-                type="text"
-                placeholder="Your Name"
-                required
-                value={contactName}
-                onChange={(e) => setContactName(e.target.value)}
-              />
-            </div>
-            <div className="form-group">
-              <input
-                type="email"
-                placeholder="Your Email"
-                required
-                value={contactEmail}
-                onChange={(e) => setContactEmail(e.target.value)}
-              />
-            </div>
-            <div className="form-group">
-              <textarea
-                placeholder="Your Message"
-                required
-                value={contactMessage}
-                onChange={(e) => setContactMessage(e.target.value)}
-              ></textarea>
-            </div>
-            <button type="submit" className="submit-button">
-              <FaPaperPlane /> Send Message
-            </button>
-          </form>
+        </header>
 
-          <h4 className="sectionTitle">Connect With Me</h4>
-          <div className="social-links">
-            <a href="https://www.linkedin.com/in/ali-bourak/" aria-label="LinkedIn"><FaLinkedin size={24} /></a>
-            <a href="https://www.instagram.com/bourakalii/" aria-label="Instagram"><FaInstagram size={24} /></a>
-            {/* <a href="#" aria-label="YouTube"><FaYoutube size={24} /></a> */}
-            <a href="https://github.com/aliiexe/" aria-label="GitHub"><FaGithub size={24} /></a>
-            {/* <a href="#" aria-label="TikTok"><FaTiktok size={24} /></a> */}
-            {/* X.com */}
-            <a href="https://x.com/a78bk6" aria-label="X">
-              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" />
-              </svg>
-            </a>
-          </div>
-        </div>
-
-        <div className="comment-section">
-          <h2 className="sectionTitle">
-            💬 Comments <span className="comment-count">({comments.length})</span>
-          </h2>
-          <p className="form-subtitle">Leave a comment below. Your feedback matters!</p>
-          <form onSubmit={handleCommentSubmit} className="comment-form">
-            <div className="form-group">
-              <input
-                type="text"
-                placeholder="Your Name"
-                required
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-            </div>
-            <div className="form-group">
-              <input
-                type="email"
-                placeholder="Your Email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
-            <div className="form-group">
-              <textarea
-                placeholder="Your Comment"
-                required
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-              />
-            </div>
-
-            <div className="star-rating">
-              <label>Rating</label>
-              {[1, 2, 3, 4, 5].map((star) => (
-                <span
-                  key={star}
-                  title={`Rate ${star} star${star > 1 ? "s" : ""}`}
-                  onClick={() => setRating(star)}
-                  style={{
-                    cursor: "pointer",
-                    fontSize: "1.5rem",
-                    color: star <= rating ? "#facc15" : "#4b5563",
-                  }}
+        {/* Contact methods */}
+        <section className="mb-10 rounded-3xl border border-[var(--glass-border)] bg-[var(--glass-bg)] p-8 backdrop-blur-[var(--glass-blur)]">
+          <ul className="space-y-4 text-sm" role="list">
+            <li>
+              <span className="text-xs uppercase tracking-[0.16em] text-[var(--color-muted)]">
+                Email
+              </span>
+              <div className="mt-1">
+                <a
+                  href={`mailto:${site.contact.email}`}
+                  className="text-[var(--color-signature-muted)] no-underline transition-colors hover:text-[var(--color-signature)]"
                 >
-                  ★
-                </span>
-              ))}
-            </div>
-
-            <div className="form-group">
-              <label className="file-label">Upload Profile Photo (Optional)</label>
-              <input
-                type="file"
-                accept="image/*"
-                onChange={(e) => e.target.files && setPhoto(e.target.files[0])}
-              />
-              <small className="file-note">Max file size: 5MB</small>
-            </div>
-
-            <button type="submit" className="submit-button">
-              <FaPaperPlane /> Submit Comment
-            </button>
-          </form>
-        </div>
-        {/* COMMENTS DISPLAY */}
-        <div className="comment-list">
-            {comments.map((c, i) => (
-              <div className="comment-box" key={i}>
-                <div className="comment-avatar">
-                  {c.image ? (
-                    <img src={`/upload/${c.image}`} alt={c.name} loading="lazy" />
-                  ) : (
-                    <div className="default-avatar">{c.name[0].toUpperCase()}</div>
-                  )}
-                </div>
-                <div className="comment-content">
-                  <strong>{c.name}</strong>
-                  <p>{c.content}</p>
-                </div>
-                <div className="comment-date">
-                  {new Date().toLocaleDateString("en-US", {
-                    year: "numeric",
-                    month: "short",
-                    day: "numeric",
-                  })}
-                </div>
+                  {site.contact.email}
+                </a>
               </div>
-            ))}
-          </div>
-      </div>
-      
-    </div>
+            </li>
+            <li>
+              <span className="text-xs uppercase tracking-[0.16em] text-[var(--color-muted)]">
+                LinkedIn
+              </span>
+              <div className="mt-1">
+                <a
+                  href={site.contact.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[var(--color-signature-muted)] no-underline transition-colors hover:text-[var(--color-signature)]"
+                >
+                  linkedin.com/in/ali-bourak
+                </a>
+              </div>
+            </li>
+            <li>
+              <span className="text-xs uppercase tracking-[0.16em] text-[var(--color-muted)]">
+                GitHub
+              </span>
+              <div className="mt-1">
+                <a
+                  href={site.contact.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[var(--color-signature-muted)] no-underline transition-colors hover:text-[var(--color-signature)]"
+                >
+                  github.com/aliiexe
+                </a>
+              </div>
+            </li>
+            {site.contact.x && (
+              <li>
+                <span className="text-xs uppercase tracking-[0.16em] text-[var(--color-muted)]">
+                  X
+                </span>
+                <div className="mt-1">
+                  <a
+                    href={site.contact.x}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[var(--color-signature-muted)] no-underline transition-colors hover:text-[var(--color-signature)]"
+                  >
+                    @a78bk6
+                  </a>
+                </div>
+              </li>
+            )}
+          </ul>
+        </section>
+
+        {/* Optional form */}
+        <section className="space-y-2">
+          <h2
+            className="font-display text-xl font-semibold text-[var(--color-foreground)]"
+            style={{ fontFamily: "var(--font-display)" }}
+          >
+            Optional: send a message
+          </h2>
+          <p className="text-sm text-[var(--color-foreground-muted)]">
+            Minimal form — name, email, message. Server-side only; no comments,
+            ratings, or uploads.
+          </p>
+          <ContactForm />
+        </section>
+      </Container>
+    </article>
   );
 }

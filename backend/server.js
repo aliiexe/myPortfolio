@@ -4,73 +4,72 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import projectRoutes from "./routes/ProjectRoutes.js";
 import experienceRoutes from "./routes/ExperienceRoutes.js";
-import reviewRoutes from "./routes/ReviewRoutes.js";
-import uploadRoutes from "./routes/UploadRoutes.js";
-
-// dotenv.config();
-
-// const app = express();
-
-// const allowedOrigins = ["http://localhost:3000", "https://alibourak.com"];
-// const corsOptions = {
-//   origin: (origin, callback) => {
-//     if (!origin || allowedOrigins.includes(origin)) {
-//       callback(null, true);
-//     } else {
-//       callback(new Error("Not allowed by CORS"));
-//     }
-//   },
-//   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-//   allowedHeaders: ["Content-Type", "Authorization"],
-//   credentials: true,
-// };
-
-// app.use(cors(corsOptions));
-// app.use(express.json());
 
 dotenv.config();
 
-// MongoDB connection function
+const mongoUri = process.env.MONGO_URI;
+if (!mongoUri) {
+  console.error("MONGO_URI is not defined. Set it in environment variables.");
+  process.exit(1);
+}
+
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(process.env.MONGO_URI);
-    console.log(`MongoDB Connected: ${conn.connection.host}`);
+    await mongoose.connect(mongoUri);
+    console.log("MongoDB Connected");
   } catch (error) {
-    console.error(`Error: ${error.message}`);
+    console.error("MongoDB connection error:", error.message);
     process.exit(1);
   }
 };
 
-// Connect to MongoDB
 connectDB();
 
-// Initialize Express app
 const app = express();
 
-// Middleware
-app.use(express.json()); // Parse JSON bodies
-app.use(cors()); // Enable CORS
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://alibourak.com",
+  "https://www.alibourak.com",
+];
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  methods: ["GET", "OPTIONS"],
+  allowedHeaders: ["Content-Type"],
+};
 
-// Basic route for testing
-app.get("/", (req, res) => {
-  res.send("API is running...");
+app.use(cors(corsOptions));
+app.use(express.json({ limit: "10kb" }));
+
+app.use((_req, res, next) => {
+  res.setHeader("X-Content-Type-Options", "nosniff");
+  res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
+  res.setHeader("Permissions-Policy", "camera=(), microphone=(), geolocation=()");
+  res.setHeader("X-Frame-Options", "DENY");
+  next();
 });
 
-const mongoUri = process.env.MONGO_URI;
-if (!mongoUri) {
-  console.error("MONGO_URI is not defined. Please set it in the environment variables.");
-  process.exit(1); 
-}
-
-mongoose.connect(mongoUri)
-  .then(() => console.log("MongoDB Connected"))
-  .catch(err => console.error("MongoDB Connection Error:", err));
+app.get("/", (_req, res) => {
+  res.json({ status: "ok", message: "API is running." });
+});
 
 app.use("/projects", projectRoutes);
 app.use("/experiences", experienceRoutes);
-app.use("/reviews", reviewRoutes);
-app.use("/uploads", express.static("uploads"));
-app.use("/api/upload", uploadRoutes);
+
+app.use((_req, res) => {
+  res.status(404).json({ error: "Not found" });
+});
+
+app.use((err, _req, res, _next) => {
+  console.error(err);
+  res.status(500).json({ error: "Something went wrong." });
+});
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

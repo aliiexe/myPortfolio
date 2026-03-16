@@ -1,40 +1,117 @@
 @import "tailwindcss";
-@import "@fontsource/poppins";
 
+/* ——— V2: Signature orange #FF4000, cinematic, editorial ——— */
 :root {
-  --background: #0a0a0a;
-  --foreground: #ededed;
-  --font-sans: "Poppins";
+  /* Base dark */
+  --color-bg: #060608;
+  --color-bg-elevated: #0a0a0e;
+  --color-bg-surface: #0e0e14;
+  --color-surface: #12121a;
+  --color-surface-hover: #18181f;
+  --color-border: #22222c;
+  --color-border-subtle: #1a1a22;
+  --color-muted: #6b6b76;
+  --color-muted-strong: #4a4a54;
+  --color-foreground: #f4f4f5;
+  --color-foreground-muted: #9a9aa4;
+
+  /* Signature orange — identity driver */
+  --color-signature: #ff4000;
+  --color-signature-muted: #ff6b33;
+  --color-signature-subtle: rgba(255, 64, 0, 0.12);
+  --color-signature-glow: rgba(255, 64, 0, 0.35);
+  --color-signature-soft: rgba(255, 64, 0, 0.08);
+
+  /* Legacy alias for focus/selection (use signature) */
+  --color-accent: var(--color-signature);
+  --color-accent-muted: var(--color-signature-muted);
+  --color-accent-subtle: var(--color-signature-subtle);
+  --color-accent-glow: var(--color-signature-glow);
+
+  /* Glass */
+  --glass-bg: rgba(12, 12, 16, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.06);
+  --glass-blur: 16px;
+
+  /* Typography — premium, no forced stretch */
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-display: "Syne", system-ui, sans-serif;
+
+  --text-hero: clamp(3.5rem, 10vw, 6.5rem);
+  --text-hero-tagline: clamp(1.05rem, 1.5vw, 1.25rem);
+  --text-display: clamp(2.25rem, 5vw, 3.5rem);
+  --text-section: clamp(1.75rem, 3.5vw, 2.5rem);
+  --text-body: 1.0625rem;
+  --text-small: 0.9375rem;
+
+  /* Spacing — more breathing room */
+  --space-section: clamp(6rem, 14vw, 10rem);
+  --space-block: clamp(2rem, 5vw, 3rem);
+  --space-inline: clamp(1.25rem, 2.5vw, 1.75rem);
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --duration-instant: 100ms;
+  --duration-fast: 220ms;
+  --duration-normal: 400ms;
+  --duration-slow: 600ms;
+
+  /* Depth / shadow — orange tint on hover where used */
+  --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.35);
+  --shadow-card-hover: 0 20px 50px rgba(0, 0, 0, 0.4), 0 0 0 1px var(--glass-border);
+  --shadow-glow: 0 0 80px var(--color-signature-glow);
+  --shadow-signature-soft: 0 0 60px var(--color-signature-soft);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-background: var(--color-bg);
+  --color-foreground: var(--color-foreground);
+  --color-surface: var(--color-surface);
+  --color-border: var(--color-border);
+  --color-muted: var(--color-muted);
+  --color-accent: var(--color-signature);
+  --color-accent-muted: var(--color-signature-muted);
   --font-sans: var(--font-sans);
-  --font-mono: var(--font-geist-mono);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--color-bg);
+  color: var(--color-foreground);
   font-family: var(--font-sans);
-  scroll-behavior: smooth;
-  position: relative;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Lenis helpers */
-html.lenis, html.lenis body {
-  height: auto;
+:focus-visible {
+  outline: 2px solid var(--color-signature);
+  outline-offset: 2px;
 }
-.lenis.lenis-smooth {
-  scroll-behavior: auto !important;
+
+::selection {
+  background: var(--color-signature-subtle);
+  color: var(--color-foreground);
 }
-.lenis.lenis-smooth [data-lenis-prevent] {
-  overscroll-behavior: contain;
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reduce-motion] {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+  }
 }
-.lenis.lenis-stopped {
-  overflow: hidden;
-}
-.lenis.lenis-smooth iframe {
+
+.noise-overlay {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
   pointer-events: none;
 }

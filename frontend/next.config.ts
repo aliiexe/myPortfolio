@@ -1,22 +1,55 @@
 import type { NextConfig } from "next";
 import type { Configuration } from "webpack";
 
+const securityHeaders = [
+  {
+    key: "X-Content-Type-Options",
+    value: "nosniff",
+  },
+  {
+    key: "Referrer-Policy",
+    value: "strict-origin-when-cross-origin",
+  },
+  {
+    key: "Permissions-Policy",
+    value: "camera=(), microphone=(), geolocation=()",
+  },
+  {
+    key: "X-Frame-Options",
+    value: "DENY",
+  },
+  {
+    key: "Content-Security-Policy",
+    value: [
+      "default-src 'self'",
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
+      "style-src 'self' 'unsafe-inline'",
+      "img-src 'self' data: https:",
+      "font-src 'self' data: https:",
+      "connect-src 'self'",
+      "frame-ancestors 'none'",
+    ].join("; "),
+  },
+];
+
 const nextConfig: NextConfig = {
-    webpack(config: Configuration) {
-        if (config.module) {
-            config.module.rules = config.module.rules || [];
-            config.module.rules.push({
-                test: /\.svg$/,
-                use: ['@svgr/webpack'],
-            });
-        }
-        return config;
-    },
-    output: "export",
-    images: {
-        unoptimized: true,
-    },
+  webpack(config: Configuration) {
+    if (config.module) {
+      config.module.rules = config.module.rules || [];
+      config.module.rules.push({
+        test: /\.svg$/,
+        use: ["@svgr/webpack"],
+      });
+    }
+    return config;
+  },
+  async headers() {
+    return [{ source: "/(.*)", headers: securityHeaders }];
+  },
+  // Removed output: "export" so /api/contact works (Vercel or Node deployment).
+  images: {
+    unoptimized: false,
+  },
 };
 
-module.exports = nextConfig;
 export default nextConfig;

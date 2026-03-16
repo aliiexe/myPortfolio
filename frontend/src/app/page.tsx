@@ -1,19 +1,19 @@
-import Hero from './components/Hero';
-import About from './components/About';
-import TechStack from './components/TechStack';
-import ProjectComponent from './components/ProjectComponent';
-import Services from './components/Services';
-import ContactPage from './contact/page';
+import { Hero } from "@/components/home/Hero";
+import { FocusAreas } from "@/components/home/FocusAreas";
+import { FeaturedProjects } from "@/components/home/FeaturedProjects";
+import { HomeAboutPreview } from "@/components/home/HomeAboutPreview";
+import { ServicesPreview } from "@/components/home/ServicesPreview";
+import { ContactCTA } from "@/components/home/ContactCTA";
 
 export default function Home() {
   return (
-    <div>
+    <>
       <Hero />
-      <About />
-      <TechStack />
-      <ProjectComponent />
-      <Services />
-      <ContactPage />
-    </div>
+      <FocusAreas />
+      <FeaturedProjects />
+      <HomeAboutPreview />
+      <ServicesPreview />
+      <ContactCTA />
+    </>
   );
 }

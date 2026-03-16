@@ -1,108 +1,167 @@
-"use client";
-import { useEffect, useRef } from "react";
-import Image from "next/image";
+import { Container } from "@/components/ui/Container";
+import { site, resume } from "@/lib/content";
 import Link from "next/link";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Big_Shoulders_Display } from "next/font/google";
-gsap.registerPlugin(ScrollTrigger);
 
-const headingFont = Big_Shoulders_Display({ subsets: ["latin"], weight: ["800"] });
+export const metadata = {
+  title: "About",
+  description: site.about.intro,
+};
 
 export default function AboutPage() {
-  const rootRef = useRef<HTMLElement | null>(null);
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ defaults: { ease: "power3.out", duration: 0.8 } });
-      tl.from(".about-title", { y: 24, opacity: 0, filter: "blur(8px)" }, 0)
-        .from(".about-avatar", { scale: 0.95, opacity: 0, filter: "blur(6px)" }, 0.1)
-        .from(".about-content", { y: 16, opacity: 0, filter: "blur(6px)" }, 0.15)
-        .from(".about-skills", { y: 14, opacity: 0, filter: "blur(6px)" }, 0.2)
-        .from(".about-ctas", { y: 12, opacity: 0, filter: "blur(6px)" }, 0.25)
-        .add(() => {
-          gsap.set(
-            ".about-title, .about-avatar, .about-content, .about-skills, .about-ctas",
-            { clearProps: "filter,opacity,transform" }
-          );
-        });
-    }, rootRef);
-
-    return () => ctx.revert();
-  }, []);
+  const latest = resume.experience[0];
 
   return (
-    <section className="min-h-screen px-6 md:px-8 mt-24 text-white" ref={rootRef}>
-      <div className="max-w-4xl mx-auto py-20">
-        <div className="mb-16">
-          <h1 className={`about-title text-5xl md:text-6xl font-bold mb-6 ${headingFont.className}`}>About Me</h1>
-        </div>
-        <div className="grid md:grid-cols-[300px,1fr] gap-12 items-start">
-          <div className="about-avatar flex justify-center md:justify-start">
-            <div className="relative">
-              <Image
-                src="/images/me.png"
-                alt="Ali Bourak"
-                width={240}
-                height={240}
-                className="rounded-2xl object-cover w-[240px] h-[240px] border border-zinc-800"
-                priority
+    <article className="py-[var(--space-section)]">
+      <Container className="max-w-5xl">
+        {/* 1. Page intro */}
+        <header className="mb-14 space-y-4">
+          <p className="text-xs font-medium text-[var(--color-muted)]">About</p>
+          <h1
+            className="font-display text-[var(--text-display)] font-semibold tracking-tight text-[var(--color-foreground)]"
+            style={{ fontFamily: "var(--font-display)" }}
+          >
+            I work at the intersection of cybersecurity, software engineering, design, and freelance digital work.
+          </h1>
+          <p className="max-w-3xl text-lg leading-relaxed text-[var(--color-foreground-muted)]">
+            {site.about.intro}
+          </p>
+        </header>
+
+        {/* 2. Main profile section */}
+        <section className="mb-18 grid gap-12 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.3fr)] md:items-start">
+          <div className="flex justify-center md:justify-start">
+            <div className="relative h-64 w-64 overflow-hidden rounded-3xl border border-[var(--glass-border)] bg-[var(--glass-bg)] shadow-[var(--shadow-card)] backdrop-blur-[var(--glass-blur)] md:h-72 md:w-72">
+              <div
+                className="absolute -inset-px rounded-3xl opacity-40"
+                style={{
+                  background:
+                    "radial-gradient(circle at 10% 0%, rgba(255,64,0,0.4), transparent 55%)",
+                }}
+                aria-hidden
               />
+              <img
+                src="/images/me2.png"
+                alt=""
+                className="relative z-10 h-full w-full object-cover"
+                width={256}
+                height={256}
+              />
+              <div className="absolute bottom-4 left-4 rounded-full bg-[var(--color-bg-surface)]/90 px-3 py-1 text-xs text-[var(--color-foreground-muted)]">
+                Security-first · Casablanca · UTC+1
+              </div>
             </div>
           </div>
-          <div className="about-content space-y-8">
-            <div>
-              <p className="text-xl text-zinc-200 leading-relaxed mb-6">
-                I'm Ali Bourak, a software engineering student and designer from Morocco. I create digital
-                experiences that are fast, clean, and purposeful.
-              </p>
-              <p className="text-lg text-zinc-400 leading-relaxed">
-                Currently building Cre8.ma and fullflow while exploring the intersection of technology and thoughtful
-                design.
-              </p>
-            </div>
-            <div className="about-skills">
-              <h3 className="text-lg font-semibold text-zinc-200 mb-4">Technologies</h3>
-              <div className="flex flex-wrap gap-3">
-                {["Next.js", "React", "TypeScript", "Tailwind CSS", "GSAP", "Node.js"].map((tech) => (
-                  <span
-                    key={tech}
-                    className="px-4 py-2 bg-zinc-900 border border-zinc-800 rounded-lg text-sm text-zinc-300 hover:border-zinc-700 transition-colors"
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 py-4">
-              <div className="flex items-center gap-3">
-                <div className="w-2 h-2 bg-zinc-600 rounded-full" />
-                <span className="text-zinc-400">Based in Casablanca</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <div className="w-2 h-2 bg-zinc-600 rounded-full" />
-                <span className="text-zinc-400">Available for projects</span>
-              </div>
-            </div>
-            <div className="about-ctas flex flex-wrap gap-4 pt-4">
-              <Link
-                href="/docs/AliBourakCVEng.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center px-6 py-3 bg-white text-black rounded-lg font-medium hover:bg-zinc-200 transition-colors"
-              >
-                View Resume
-              </Link>
-              <Link
-                href="/contact"
-                className="inline-flex items-center px-6 py-3 border border-zinc-800 text-zinc-200 rounded-lg hover:bg-zinc-900 transition-colors"
-              >
-                Get in touch
-              </Link>
-            </div>
+          <div className="space-y-5 text-[var(--color-foreground-muted)] leading-relaxed">
+            <p>{site.about.story}</p>
+            <p>{site.about.philosophy}</p>
           </div>
-        </div>
-      </div>
-    </section>
+        </section>
+
+        {/* 3. Principles / values */}
+        <section className="mb-16 grid gap-6 md:grid-cols-3">
+          <article className="space-y-3 rounded-2xl border border-[var(--glass-border)] bg-[var(--glass-bg)] p-6 backdrop-blur-[var(--glass-blur)]">
+            <h2
+              className="font-display text-base font-semibold text-[var(--color-foreground)]"
+              style={{ fontFamily: "var(--font-display)" }}
+            >
+              Secure by default
+            </h2>
+            <p className="text-sm text-[var(--color-foreground-muted)] leading-relaxed">
+              Web security, secure development, and threat-aware decisions from the first sketch to deployment.
+            </p>
+          </article>
+          <article className="space-y-3 rounded-2xl border border-[var(--glass-border)] bg-[var(--glass-bg)] p-6 backdrop-blur-[var(--glass-blur)]">
+            <h2
+              className="font-display text-base font-semibold text-[var(--color-foreground)]"
+              style={{ fontFamily: "var(--font-display)" }}
+            >
+              Clean architecture
+            </h2>
+            <p className="text-sm text-[var(--color-foreground-muted)] leading-relaxed">
+              Systems that stay understandable, testable, and maintainable, rather than one-off impressive demos.
+            </p>
+          </article>
+          <article className="space-y-3 rounded-2xl border border-[var(--glass-border)] bg-[var(--glass-bg)] p-6 backdrop-blur-[var(--glass-blur)]">
+            <h2
+              className="font-display text-base font-semibold text-[var(--color-foreground)]"
+              style={{ fontFamily: "var(--font-display)" }}
+            >
+              Design that respects users
+            </h2>
+            <p className="text-sm text-[var(--color-foreground-muted)] leading-relaxed">
+              Calm, usable interfaces with clear hierarchy and focus instead of visual noise.
+            </p>
+          </article>
+        </section>
+
+        {/* 4. Current focus */}
+        <section className="mb-16 grid gap-8 md:grid-cols-2">
+          <div className="space-y-3">
+            <h2
+              className="font-display text-lg font-semibold text-[var(--color-foreground)]"
+              style={{ fontFamily: "var(--font-display)" }}
+            >
+              Current focus
+            </h2>
+            <ul className="space-y-2 text-sm text-[var(--color-foreground-muted)]" role="list">
+              <li>Web security and secure full-stack systems.</li>
+              <li>CTF and practical cybersecurity learning.</li>
+              <li>Product-minded engineering with modern web stacks.</li>
+            </ul>
+          </div>
+          <div className="space-y-3">
+            <h2
+              className="font-display text-lg font-semibold text-[var(--color-foreground)]"
+              style={{ fontFamily: "var(--font-display)" }}
+            >
+              How I work
+            </h2>
+            <p className="text-sm text-[var(--color-foreground-muted)] leading-relaxed">
+              I like small, intentional teams, clear scopes, and strong communication. Security is part of architecture, implementation, and review from the start.
+            </p>
+          </div>
+        </section>
+
+        {/* 5. Experience snapshot */}
+        {latest && (
+          <section className="mb-14 rounded-3xl border border-[var(--glass-border)] bg-[var(--glass-bg)] p-8 backdrop-blur-[var(--glass-blur)]">
+            <p className="text-xs font-medium text-[var(--color-muted)]">
+              Experience snapshot
+            </p>
+            <h2
+              className="mt-3 font-display text-xl font-semibold text-[var(--color-foreground)]"
+              style={{ fontFamily: "var(--font-display)" }}
+            >
+              {latest.title}
+            </h2>
+            <p className="text-sm text-[var(--color-muted)]">
+              {latest.company} · {latest.location}
+            </p>
+            <p className="mt-1 text-sm text-[var(--color-muted)]">
+              {latest.startDate} — {latest.isCurrent ? "Present" : latest.endDate ?? "—"}
+            </p>
+            <p className="mt-4 max-w-2xl text-sm leading-relaxed text-[var(--color-foreground-muted)]">
+              {latest.description}
+            </p>
+          </section>
+        )}
+
+        {/* 6. CTA */}
+        <section className="flex flex-wrap gap-5 border-t border-[var(--color-border-subtle)] pt-8">
+          <Link
+            href="/resume"
+            className="inline-flex items-center rounded-xl bg-[var(--color-signature)] px-7 py-4 text-sm font-medium text-white no-underline shadow-[0_0_40px_var(--color-signature-soft)] transition-shadow hover:shadow-[0_0_60px_var(--color-signature-glow)]"
+          >
+            View resume
+          </Link>
+          <Link
+            href="/contact"
+            className="inline-flex items-center rounded-xl border border-[var(--color-border)] bg-[var(--glass-bg)] px-6 py-3.5 text-sm font-medium text-[var(--color-foreground)] backdrop-blur-[var(--glass-blur)] no-underline transition-colors hover:border-[var(--color-muted)] hover:bg-[var(--color-surface)]"
+          >
+            Contact
+          </Link>
+        </section>
+      </Container>
+    </article>
   );
 }
