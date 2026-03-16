@@ -1,8 +1,8 @@
 export const site = {
   name: "Ali Bourak",
-  tagline: "Cybersecurity, Software Engineering & Design",
+  tagline: "Cybersecurity Engineering, Web Pentesting & Software Systems",
   heroSummary:
-    "Cybersecurity-first engineer working across secure software systems, product design, and selected freelance digital work.",
+    "Engineering student in Cybersecurity and Networks focused on web pentesting, application security, and secure software systems.",
   focusAreas: [
     {
       title: "Cybersecurity",
@@ -26,19 +26,39 @@ export const site = {
     },
   ],
   about: {
-    headline: "Who I am",
+    headline: "Cybersecurity-focused engineer and web pentester",
     intro:
-      "I'm Ali Bourak, a cybersecurity-focused engineer working across secure systems, software engineering, and design. I care about building things that are secure by default, well engineered, and a pleasure to use.",
+      "I'm Ali Bourak, an engineering student in Cybersecurity and Networks in Casablanca. I focus on application security, web pentesting, and secure software systems, building on a strong foundation in full-stack development, Linux administration, and modern web architecture.",
     story:
-      "Based in Morocco, I'm currently deepening my work in offensive security, secure development practices, and applied web security while continuing to ship full-stack projects and design systems. I aim to bring a security-first mindset to every layer: from code and APIs to deployment and product decisions.",
+      "Most of my current work is centered on the analysis and controlled exploitation of OWASP Top 10 vulnerabilities through hands-on labs, CTF environments, and personal technical projects. I also work on academic and personal security labs such as VulnLabX and a virtual defensive lab from scratch.",
     philosophy:
-      "I believe in minimal attack surface, clear architecture, and intentional design. No clutter and no unnecessary risk.",
+      "I care about secure-by-design systems, clear architecture, and practical security. My goal is to keep security and reliability at the center of engineering decisions, not as an afterthought.",
   },
   skills: {
-    security: ["Web Security", "Secure Development", "OWASP", "Labs & CTFs", "Threat Modeling"],
-    development: ["TypeScript", "Next.js", "React", "Node.js", "MongoDB", "REST APIs"],
-    design: ["Figma", "UI/UX", "Design Systems", "Visual Identity"],
-    tools: ["Git", "VS Code", "Vercel", "Docker"],
+    security: [
+      "Web Pentesting",
+      "Application Security",
+      "OWASP Top 10",
+      "HTTP request/response analysis",
+      "CTFs and labs",
+    ],
+    development: [
+      "Java (Spring Boot)",
+      "JavaScript (Node.js, Express, Next.js)",
+      "PHP (Laravel)",
+      "Angular",
+      "React",
+    ],
+    design: ["Figma", "Product & UI design", "Visual identity"],
+    tools: [
+      "Linux administration",
+      "Burp Suite",
+      "PostgreSQL",
+      "MySQL",
+      "MongoDB",
+      "Docker",
+      "Git",
+    ],
   },
   contact: {
     email: "mail@alibourak.com",

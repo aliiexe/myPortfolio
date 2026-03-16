@@ -71,6 +71,7 @@ export function ExperienceSnapshot() {
               <p className="mt-3">
                 Freelance and product work in Next.js, TypeScript, and secure web
                 development, supported by ongoing studies and community work.
+              </p>
               <Link
                 href="/resume"
                 className="mt-4 inline-block font-medium text-[var(--color-signature-muted)] no-underline transition-colors hover:text-[var(--color-signature)]"

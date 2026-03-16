@@ -71,23 +71,6 @@ export default function ContactPage() {
                 </a>
               </div>
             </li>
-            {site.contact.x && (
-              <li>
-                <span className="text-xs uppercase tracking-[0.16em] text-[var(--color-muted)]">
-                  X
-                </span>
-                <div className="mt-1">
-                  <a
-                    href={site.contact.x}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[var(--color-signature-muted)] no-underline transition-colors hover:text-[var(--color-signature)]"
-                  >
-                    @a78bk6
-                  </a>
-                </div>
-              </li>
-            )}
           </ul>
         </section>
 
@@ -97,11 +80,10 @@ export default function ContactPage() {
             className="font-display text-xl font-semibold text-[var(--color-foreground)]"
             style={{ fontFamily: "var(--font-display)" }}
           >
-            Optional: send a message
+            Don't be shy, say hi!
           </h2>
           <p className="text-sm text-[var(--color-foreground-muted)]">
-            Minimal form — name, email, message. Server-side only; no comments,
-            ratings, or uploads.
+            I'm always looking for new opportunities and collaborations. If you have any questions or want to work together, please feel free to contact me.
           </p>
           <ContactForm />
         </section>
